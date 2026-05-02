@@ -30,6 +30,31 @@
   var autorotateToggleElement = document.querySelector('#autorotateToggle');
   var fullscreenToggleElement = document.querySelector('#fullscreenToggle');
 
+  // ========== デバッグ用：座標表示パネル ==========
+  var debugPanel = document.createElement('div');
+  debugPanel.style.cssText = [
+    'position: fixed',
+    'bottom: 20px',
+    'left: 50%',
+    'transform: translateX(-50%)',
+    'background: rgba(0,0,0,0.82)',
+    'color: #fff',
+    'font-family: monospace',
+    'font-size: 15px',
+    'padding: 14px 24px',
+    'border-radius: 10px',
+    'z-index: 9999',
+    'text-align: center',
+    'pointer-events: none',
+    'min-width: 320px',
+    'line-height: 1.8'
+  ].join(';');
+  debugPanel.innerHTML =
+    '📍 天球写真をクリックすると座標が表示されます<br>' +
+    '<span style="font-size:12px;color:#aaa;">ピンを立てたい場所（仙台駅など）をクリックしてください</span>';
+  document.body.appendChild(debugPanel);
+  // ================================================
+
   // Detect desktop or mobile mode.
   if (window.matchMedia) {
     var setMode = function() {
@@ -177,6 +202,26 @@
   controls.registerMethod('rightElement', new Marzipano.ElementPressControlMethod(viewRightElement,  'x',  velocity, friction), true);
   controls.registerMethod('inElement',    new Marzipano.ElementPressControlMethod(viewInElement,  'zoom', -velocity, friction), true);
   controls.registerMethod('outElement',   new Marzipano.ElementPressControlMethod(viewOutElement, 'zoom',  velocity, friction), true);
+
+  // ========== デバッグ用：クリック座標取得 ==========
+  panoElement.addEventListener('click', function(event) {
+    // ドラッグ後のクリックを無視するための判定
+    var view = scenes[0].view;
+    var coords = view.screenToCoordinates({
+      x: event.clientX,
+      y: event.clientY
+    });
+    if (coords) {
+      var yaw   = coords.yaw.toFixed(6);
+      var pitch = coords.pitch.toFixed(6);
+      debugPanel.innerHTML =
+        '📍 クリックした場所の座標<br>' +
+        '<b style="color:#7ff; font-size:17px;">yaw: ' + yaw + '</b><br>' +
+        '<b style="color:#ff7; font-size:17px;">pitch: ' + pitch + '</b><br>' +
+        '<span style="font-size:11px; color:#aaa;">この値を data.js の infoHotspots にコピーしてください</span>';
+    }
+  });
+  // ==================================================
 
   function sanitize(s) {
     return s.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;');
