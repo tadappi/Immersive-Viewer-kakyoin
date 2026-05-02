@@ -1,0 +1,336 @@
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -ms-text-size-adjust: none;
+  -moz-text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+  -webkit-user-drag: none;
+  -webkit-touch-callout: none;
+  -ms-content-zooming: none;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  background-color: #000;
+  color: #fff;
+}
+
+a, a:hover, a:active, a:visited {
+  text-decoration: none;
+  color: inherit;
+}
+
+#pano {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+#titleBar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 40px;
+  height: 40px;
+  text-align: center;
+}
+
+.mobile #titleBar {
+  height: 50px;
+  right: 50px;
+}
+
+body.fullscreen-enabled #titleBar {
+  right: 80px;
+}
+
+body.fullscreen-enabled.mobile #titleBar {
+  right: 100px;
+}
+
+body.multiple-scenes #titleBar {
+  left: 40px;
+}
+
+body.multiple-scenes.mobile #titleBar {
+  left: 50px;
+}
+
+#titleBar .sceneName {
+  width: 100%;
+  height: 100%;
+  line-height: 30px;
+  padding: 5px;
+  background-color: rgba(58,68,84,0.8);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  -moz-user-select: text;
+  -webkit-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
+.mobile #titleBar .sceneName {
+  line-height: 40px;
+}
+
+#fullscreenToggle {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 40px;
+  height: 40px;
+  padding: 5px;
+  background-color: rgba(103,115,131,0.8);
+}
+
+.mobile #fullscreenToggle {
+  width: 50px;
+  height: 50px;
+}
+
+body.fullscreen-enabled #fullscreenToggle {
+  display: block;
+}
+
+#fullscreenToggle .icon {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 30px;
+  height: 30px;
+}
+
+.mobile #fullscreenToggle .icon {
+  top: 10px;
+  right: 10px;
+}
+
+#fullscreenToggle .icon.on { display: none; }
+#fullscreenToggle .icon.off { display: block; }
+#fullscreenToggle.enabled .icon.on { display: block; }
+#fullscreenToggle.enabled .icon.off { display: none; }
+
+#autorotateToggle {
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 40px;
+  height: 40px;
+  padding: 5px;
+  background-color: rgba(103,115,131,0.8);
+}
+
+.mobile #autorotateToggle {
+  width: 50px;
+  height: 50px;
+}
+
+body.fullscreen-enabled #autorotateToggle {
+  right: 40px;
+}
+
+body.fullscreen-enabled.mobile #autorotateToggle {
+  right: 50px;
+}
+
+#autorotateToggle .icon {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 30px;
+  height: 30px;
+}
+
+.mobile #autorotateToggle .icon {
+  top: 10px;
+  right: 10px;
+}
+
+#autorotateToggle .icon.on { display: none; }
+#autorotateToggle .icon.off { display: block; }
+#autorotateToggle.enabled .icon.on { display: block; }
+#autorotateToggle.enabled .icon.off { display: none; }
+
+/* Scene List */
+#sceneListToggle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 40px;
+  padding: 5px;
+  background-color: rgba(103,115,131,0.8);
+}
+
+.mobile #sceneListToggle {
+  width: 50px;
+  height: 50px;
+}
+
+#sceneListToggle .icon {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 30px;
+  height: 30px;
+}
+
+#sceneListToggle .icon.on { display: none; }
+#sceneListToggle .icon.off { display: block; }
+#sceneListToggle.enabled .icon.on { display: block; }
+#sceneListToggle.enabled .icon.off { display: none; }
+
+#sceneList {
+  position: absolute;
+  top: 0;
+  left: -220px;
+  padding-top: 40px;
+  width: 220px;
+  max-height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  transition: margin-left 0.5s ease-in-out;
+}
+
+.mobile #sceneList { padding-top: 50px; }
+
+#sceneList .scenes {
+  width: 100%;
+  background-color: rgba(58,68,84,0.8);
+}
+
+.mobile #sceneList { width: 100%; height: 100%; left: -100%; }
+.mobile #sceneList.enabled { margin-left: 100%; }
+.mobile #sceneList .scenes { height: 100%; }
+
+#sceneList.enabled { margin-left: 220px; }
+
+/* Hide scene list for single scene */
+body.single-scene #sceneList,
+body.single-scene #sceneListToggle {
+  display: none;
+}
+
+/* ===== ピンの見た目 ===== */
+.iv-pin-anchor img {
+  width: 90%;
+  height: 90%;
+  object-fit: contain;
+}
+
+/* ===== ラベル：常に表示 ===== */
+/* ここを「ホバーで出る」→「最初からずっと見える」に変更 */
+.iv-label {
+  opacity: 1 !important;      /* いつでも表示 */
+  pointer-events: auto;       /* 必要ならクリックも可。いらなければ none に変えてOK */
+  transition: none;           /* フェード演出が不要なら none */
+}
+
+/* ================================ */
+/* ★ 内部モーダル（半画面 iframe） */
+/* ================================ */
+
+#modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(2px);
+  z-index: 99999;
+
+  display: none;
+  align-items: center;
+  justify-content: flex-start; /* 左寄せ */
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+#modalOverlay.show {
+  display: flex;
+  opacity: 1;
+}
+
+/* 左側に出るモーダル */
+#modalBox {
+  width: 40vw;
+  height: 70vh;
+  margin-left: 40px;
+  background: #111;
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+  animation: modalIn 0.25s ease;
+}
+
+@keyframes modalIn {
+  0% { transform: scale(0.85); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+#modalClose {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: rgba(255,255,255,0.15);
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  border-radius: 4px;
+  z-index: 10000;
+}
+
+#modalClose:hover { background: rgba(255,255,255,0.25); }
+
+#modalVideo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+  background: #000; /* 読み込み中も黒で埋める */
+}
+
+/* スマホ対応 */
+@media (max-width: 799px) {
+  #modalBox {
+    width: 90%;
+    height: 60%;
+    margin-left: 5%;
+  }
+}
+
+@media (max-height: 500px) {
+  #modalBox {
+    width: 90%;
+    height: 80%;
+  }
+}
