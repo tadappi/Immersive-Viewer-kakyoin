@@ -33,7 +33,14 @@ var APP_DATA = {
         "fov": 1.3263317910021355
       },
       "linkHotspots": [],
-      "infoHotspots": []
+      "infoHotspots": [
+        {
+          "yaw": -1.957542,
+          "pitch": 0.197450,
+          "title": "仙台駅",
+          "text": ""
+        }
+      ]
     }
   ],
   "name": "Project Title",
